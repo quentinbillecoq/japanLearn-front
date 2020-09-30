@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Japan Learn</title>
+        <script src="https://unpkg.com/wanakana@4.0.2/umd/wanakana.min.js"></script>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="japan.js"></script>
+    </head>
+
+    <style>
+        * { margin: 0px; padding: 0px; }
+        body { padding: 20px; }
+        #kana{
+            font-size: 50px;
+        }
+        #answer{
+            width: 162px;
+        }
+        #leftside {
+            float: left;
+        }
+        #rightside {
+            float: right;
+        }
+    </style>
+    <body>
+
+        <div id="leftside">
+            <p id="kana"></p>
+            <input id="answer" type="text">
+        </div>
+
+        <div id="rightside">
+            <table id="kanaTable">
+                <thead>
+                    <tr>
+                        <td>Kana</td>
+                        <td>Succès</td>
+                        <td>Erreur</td>
+                    </tr>
+                </thead>
+                <tbody id="tbodykanaTable">
+
+                </tbody>
+            </table>
+        </div>
+        
+    </body>
+    <script>
+
+        let kanaAsk = randKana();
+        console.log(kanaAsk);
+        tableGen();
+
+        $("#kana").text(wanakana.toHiragana(kanaAsk));
+
+        $("#answer").keyup(function(e){
+            if(e.keyCode == 13 && $("#answer").val()!="")
+            {
+               let answer = $("#answer").val();
+               $("#answer").val("");
+               if(kanaAsk.toLowerCase() == answer.toLowerCase()){
+                    kanaResult["hiragana"][kanaAsk]["success"]++;
+                    $('#kana').css("backgroundColor","green");
+                    $("#kana").text(kanaAsk);
+                    setTimeout(function () {
+                        $('#kana').css("backgroundColor","white");
+                        kanaAsk = randKana();
+                        $("#kana").text(wanakana.toHiragana(kanaAsk));
+                    }, 500);
+               }else{
+                    kanaResult["hiragana"][kanaAsk]["error"]++;
+                    $('#kana').css("backgroundColor","red");
+                    $("#kana").text(kanaAsk);
+                    setTimeout(function () {
+                        $('#kana').css("backgroundColor","white");
+                        kanaAsk = randKana();
+                        $("#kana").text(wanakana.toHiragana(kanaAsk));
+                    }, 500);
+               }
+            }
+        });
+
+        
+    </script>
+</html>
