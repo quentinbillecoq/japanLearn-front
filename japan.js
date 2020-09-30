@@ -7,11 +7,14 @@ function randKana(){
 }
 
 function tableGen(){
-    for (let i = 0; i < kanaResult["hiragana"].length; i++) {
-        $("#tbodykanaTable").append("<tr><td>"+kanaResult["hiragana"][kanalist[index]]["name"]+"</td><td>"+kanaResult["hiragana"][kanalist[index]]["success"]+"</td><td>"+kanaResult["hiragana"][kanalist[index]]["error"]+"</td></tr>");
-        console.log(kanaResult["hiragana"][kanalist[index]]["name"]);
+    $("#tbodykanaTable").empty();
+    let result = kanaResult["hiragana"];
+    for (let i = 0; i < Object.keys(kanaResult["hiragana"]).length; i++) {
+        console.log(result[kanalist[i]]["success"]);
+        if(result[kanalist[i]]["success"]!=0 || result[kanalist[i]]["error"]!=0){
+            $("#tbodykanaTable").append("<tr><td>"+result[kanalist[i]]["name"]+"</td><td>"+result[kanalist[i]]["success"]+"</td><td>"+result[kanalist[i]]["error"]+"</td></tr>");
+        }
     }
-    console.log(kanaResult["hiragana"]);
 }
 
 let kanagroup = [];

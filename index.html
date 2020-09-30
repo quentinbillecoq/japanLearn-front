@@ -51,7 +51,7 @@
     <script>
 
         let kanaAsk = randKana();
-        console.log(kanaAsk);
+        // console.log(kanaAsk);
         tableGen();
 
         $("#kana").text(wanakana.toHiragana(kanaAsk));
@@ -63,6 +63,7 @@
                $("#answer").val("");
                if(kanaAsk.toLowerCase() == answer.toLowerCase()){
                     kanaResult["hiragana"][kanaAsk]["success"]++;
+                    tableGen();
                     $('#kana').css("backgroundColor","green");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
@@ -72,6 +73,7 @@
                     }, 500);
                }else{
                     kanaResult["hiragana"][kanaAsk]["error"]++;
+                    tableGen();
                     $('#kana').css("backgroundColor","red");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
