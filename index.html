@@ -73,9 +73,10 @@
         
     </body>
     <script>
+        genKanaList();
+        let kanaResult = [];
         genResult();
         let kanaAsk = randKana();
-        // console.log(kanaAsk);
         tableGen();
 
         $("#kana").text(wanakana.toHiragana(kanaAsk));
@@ -83,9 +84,10 @@
         $("#answer").keyup(function(e){
             if(e.keyCode == 13 && $("#answer").val()!="")
             {
-               let answer = $("#answer").val();
-               $("#answer").val("");
-               if(kanaAsk.toLowerCase() == answer.toLowerCase()){
+                console.log(kanaResult["hiragana"]);
+                let answer = $("#answer").val();
+                $("#answer").val("");
+                if(kanaAsk.toLowerCase() == answer.toLowerCase()){
                     kanaResult["hiragana"][kanaAsk]["success"]++;
                     tableGen();
                     $('#kana').css("backgroundColor","green");
@@ -95,7 +97,7 @@
                         kanaAsk = randKana();
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
-               }else{
+                }else{
                     kanaResult["hiragana"][kanaAsk]["error"]++;
                     tableGen();
                     $('#kana').css("backgroundColor","red");
@@ -105,13 +107,11 @@
                         kanaAsk = randKana();
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
-               }
+                }
             }
         });
 
-        genKanaList()
         $('.checkbox').click(function (e){
-            console.log("ok");
             genKanaList();
             kanaAsk = randKana();
             $("#kana").text(wanakana.toHiragana(kanaAsk));
