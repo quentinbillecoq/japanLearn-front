@@ -10,9 +10,9 @@ function tableGen(){
     $("#tbodykanaTable").empty();
     let result = kanaResult["hiragana"];
     for (let i = 0; i < Object.keys(kanaResult["hiragana"]).length; i++) {
-        console.log(result[kanalist[i]]["success"]);
-        if(result[kanalist[i]]["success"]!=0 || result[kanalist[i]]["error"]!=0){
-            $("#tbodykanaTable").append("<tr><td>"+result[kanalist[i]]["name"]+"</td><td>"+result[kanalist[i]]["success"]+"</td><td>"+result[kanalist[i]]["error"]+"</td></tr>");
+        console.log(result[kanalistAll[i]]["success"]);
+        if(result[kanalistAll[i]]["success"]!=0 || result[kanalistAll[i]]["error"]!=0){
+            $("#tbodykanaTable").append("<tr><td>"+result[kanalistAll[i]]["name"]+"</td><td>"+result[kanalist[i]]["success"]+"</td><td>"+result[kanalist[i]]["error"]+"</td></tr>");
         }
     }
 }
@@ -31,19 +31,29 @@ kanagroup[9] = ["WA","WO"];
 kanagroup[10] = ["N"];
 
 let kanalist = [];
+let kanalistAll = [];
 
-for (let index = 0; index < kanagroup.length; index++) {
-    for (let i = 0; i < kanagroup[index].length; i++) {
-        kanalist.push(kanagroup[index][i]);
+function genKanaList(){
+
+    for (let index = 0; index < kanagroup.length; index++) {
+        for (let i = 0; i < kanagroup[index].length; i++) {
+            if($('input[name='+index+']').is(':checked')){
+                kanalist.push(kanagroup[index][i]);
+            }
+            kanalistAll.push(kanagroup[index][i]);
+        }
     }
+    console.log(kanalist)
 }
 
-
 let kanaResult = [];
-kanaResult["hiragana"] = [];
-for (let index = 0; index < kanalist.length; index++) {
-    kanaResult["hiragana"][kanalist[index]] = [];
-    kanaResult["hiragana"][kanalist[index]]["name"] = kanalist[index];
-    kanaResult["hiragana"][kanalist[index]]["success"] = 0;
-    kanaResult["hiragana"][kanalist[index]]["error"] = 0;
+function genResult(){
+    kanaResult = [];
+    kanaResult["hiragana"] = [];
+    for (let index = 0; index < kanalistAll.length; index++) {
+        kanaResult["hiragana"][kanalistAll[index]] = [];
+        kanaResult["hiragana"][kanalistAll[index]]["name"] = kanalistAll[index];
+        kanaResult["hiragana"][kanalistAll[index]]["success"] = 0;
+        kanaResult["hiragana"][kanalistAll[index]]["error"] = 0;
+    }
 }
