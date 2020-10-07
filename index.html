@@ -6,12 +6,15 @@
         <title>Japan Learn</title>
         <script src="https://unpkg.com/wanakana@4.0.2/umd/wanakana.min.js"></script>
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="kana.js"></script>
         <script src="japan.js"></script>
     </head>
 
     <style>
         * { margin: 0px; padding: 0px; }
-        body { padding: 20px; }
+        body { padding: 20px;
+            background-color: grey;
+        }
         #kana{
             font-size: 50px;
         }
@@ -24,33 +27,73 @@
         #rightside {
             float: right;
         }
+        .selectbtn {
+            background-color: green;
+            display: inline-block;
+            padding: 5px 10px 5px 10px;
+            border: 1px solid black;
+            border-radius: 15px;
+            margin: 5px;
+        }
     </style>
     <body>
 
         <div id="leftside">
             <form action="">
-                <input type="checkbox" name="0" class="checkbox">
-                <label for="0">Base</label>
-                <input type="checkbox" name="1" class="checkbox">
-                <label for="1">K.</label>
-                <input type="checkbox" name="2" class="checkbox">
-                <label for="2">S.</label>
-                <input type="checkbox" name="3" class="checkbox">
-                <label for="3">T.</label>
-                <input type="checkbox" name="4" class="checkbox">
-                <label for="4">N.</label>
-                <input type="checkbox" name="5" class="checkbox">
-                <label for="5">H.</label>
-                <input type="checkbox" name="6" class="checkbox">
-                <label for="6">M.</label>
-                <input type="checkbox" name="7" class="checkbox">
-                <label for="7">Y.</label>
-                <input type="checkbox" name="8" class="checkbox">
-                <label for="8">R.</label>
-                <input type="checkbox" name="9" class="checkbox">
-                <label for="9">W.</label>
-                <input type="checkbox" name="10" class="checkbox">
-                <label for="10">N</label>
+                <div class="selectbtn">
+                    <input type="checkbox" name="0" class="checkbox">
+                    <label for="0">Base <i>80%</i></label>
+                </div>
+
+                <div class="selectbtn">
+                    <input type="checkbox" name="1" class="checkbox">
+                    <label for="1">K. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="2" class="checkbox">
+                    <label for="2">S. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="3" class="checkbox">
+                    <label for="3">T. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="4" class="checkbox">
+                    <label for="4">N. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="5" class="checkbox">
+                    <label for="5">H. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="6" class="checkbox">
+                    <label for="6">M. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="7" class="checkbox">
+                    <label for="7">Y. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="8" class="checkbox">
+                    <label for="8">R. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="9" class="checkbox">
+                    <label for="9">W. <i>80%</i></label>
+                </div>
+                    
+                <div class="selectbtn">
+                    <input type="checkbox" name="10" class="checkbox">
+                    <label for="10">N <i>80%</i></label>
+                </div>
             </form>
             <p id="kana"></p>
             <input id="answer" type="text">
@@ -93,7 +136,7 @@
                     $('#kana').css("backgroundColor","green");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
-                        $('#kana').css("backgroundColor","white");
+                        $('#kana').css("backgroundColor","");
                         kanaAsk = randKana();
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
@@ -103,7 +146,7 @@
                     $('#kana').css("backgroundColor","red");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
-                        $('#kana').css("backgroundColor","white");
+                        $('#kana').css("backgroundColor","");
                         kanaAsk = randKana();
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
