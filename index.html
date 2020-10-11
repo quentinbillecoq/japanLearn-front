@@ -40,60 +40,56 @@
 
         <div id="leftside">
             <form action="">
-                <div class="selectbtn">
-                    <input type="checkbox" name="0" class="checkbox">
-                    <label for="0">Base <i>80%</i></label>
+                <div class="selectbtn" id="B">
+                    <input type="checkbox" name="B" class="checkbox" checked>
+                    <label for="0">Base <i>0%</i></label>
                 </div>
 
-                <div class="selectbtn">
-                    <input type="checkbox" name="1" class="checkbox">
-                    <label for="1">K. <i>80%</i></label>
+                <div class="selectbtn" id="K">
+                    <input type="checkbox" name="K" class="checkbox" checked>
+                    <label for="1">K. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="2" class="checkbox">
-                    <label for="2">S. <i>80%</i></label>
+                <div class="selectbtn" id="S">
+                    <input type="checkbox" name="S" class="checkbox" checked>
+                    <label for="2">S. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="3" class="checkbox">
-                    <label for="3">T. <i>80%</i></label>
+                <div class="selectbtn" id="T">
+                    <input type="checkbox" name="T" class="checkbox" checked>
+                    <label for="3">T. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="4" class="checkbox">
-                    <label for="4">N. <i>80%</i></label>
+                <div class="selectbtn" id="N">
+                    <input type="checkbox" name="N" class="checkbox" checked>
+                    <label for="4">N. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="5" class="checkbox">
-                    <label for="5">H. <i>80%</i></label>
+                <div class="selectbtn" id="H">
+                    <input type="checkbox" name="H" class="checkbox" checked>
+                    <label for="5">H. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="6" class="checkbox">
-                    <label for="6">M. <i>80%</i></label>
+                <div class="selectbtn" id="M">
+                    <input type="checkbox" name="M" class="checkbox" checked>
+                    <label for="6">M. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="7" class="checkbox">
-                    <label for="7">Y. <i>80%</i></label>
+                <div class="selectbtn" id="Y">
+                    <input type="checkbox" name="Y" class="checkbox" checked>
+                    <label for="7">Y. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="8" class="checkbox">
-                    <label for="8">R. <i>80%</i></label>
+                <div class="selectbtn" id="R">
+                    <input type="checkbox" name="R" class="checkbox" checked>
+                    <label for="8">R. <i>0%</i></label>
                 </div>
                     
-                <div class="selectbtn">
-                    <input type="checkbox" name="9" class="checkbox">
-                    <label for="9">W. <i>80%</i></label>
+                <div class="selectbtn" id="W">
+                    <input type="checkbox" name="W" class="checkbox" checked>
+                    <label for="9">W. <i>0%</i></label>
                 </div>
-                    
-                <div class="selectbtn">
-                    <input type="checkbox" name="10" class="checkbox">
-                    <label for="10">N <i>80%</i></label>
-                </div>
+
             </form>
             <p id="kana"></p>
             <input id="answer" type="text">
@@ -116,38 +112,32 @@
         
     </body>
     <script>
-        genKanaList();
-        let kanaResult = [];
-        genResult();
-        let kanaAsk = randKana();
-        tableGen();
+        let kanaArray = ["B","K","S","T","N","H","M","Y","R","W"];
+        let kanaAsk = randKana(kanaArray);
 
         $("#kana").text(wanakana.toHiragana(kanaAsk));
 
         $("#answer").keyup(function(e){
             if(e.keyCode == 13 && $("#answer").val()!="")
             {
-                console.log(kanaResult["hiragana"]);
                 let answer = $("#answer").val();
                 $("#answer").val("");
                 if(kanaAsk.toLowerCase() == answer.toLowerCase()){
-                    kanaResult["hiragana"][kanaAsk]["success"]++;
-                    tableGen();
+                    addKanaSuccess(kanaAsk,"hiragana");
                     $('#kana').css("backgroundColor","green");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
                         $('#kana').css("backgroundColor","");
-                        kanaAsk = randKana();
+                        kanaAsk = randKana(kanaArray);
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
                 }else{
-                    kanaResult["hiragana"][kanaAsk]["error"]++;
-                    tableGen();
+                    addKanaError(kanaAsk,"hiragana");
                     $('#kana').css("backgroundColor","red");
                     $("#kana").text(kanaAsk);
                     setTimeout(function () {
                         $('#kana').css("backgroundColor","");
-                        kanaAsk = randKana();
+                        kanaAsk = randKana(kanaArray);
                         $("#kana").text(wanakana.toHiragana(kanaAsk));
                     }, 500);
                 }
@@ -155,8 +145,14 @@
         });
 
         $('.checkbox').click(function (e){
-            genKanaList();
-            kanaAsk = randKana();
+            targetKana = e.target.name;
+            if($('input[name='+targetKana+']').is(':checked')){
+                kanaArray.push(targetKana);
+            }else{
+                kanaArray.remove(targetKana);
+            }
+            console.log(kanaArray);
+            kanaAsk = randKana(kanaArray);
             $("#kana").text(wanakana.toHiragana(kanaAsk));
         });
         
